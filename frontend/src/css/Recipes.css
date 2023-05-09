@@ -1,0 +1,107 @@
+section {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 2em;
+    padding: 2em;
+    overflow: auto;
+    height: 64vh;
+}
+
+
+/* recipe's image*/
+.recipes > div > img {
+    height: 50%;
+    width: 100%;
+    object-fit: cover;
+    border-radius: 1em 1em 0 0;
+}
+
+/*recipe's text*/
+.recipes > div > div {
+    margin: 1em;
+    color: #000000;
+    font-family: 'Inter';
+    font-style: italic;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+/*recipe's rectangle*/
+.recipes > div {
+    border: 1px solid #816A3A;
+    border-radius: 1em 1em 0 0;
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    overflow: auto;
+}
+
+/* width */
+::-webkit-scrollbar {
+    width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+    background: #FFF8EC;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+    background: #B6A47E;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+section.recipe-form {
+    display: flex;
+    flex-direction: column;
+    font-family: 'Inter';
+    font-style: italic;
+}
+
+.recipe-form > form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+
+.recipe-form > form > input, select, textarea {
+    border-radius: 15px;
+    background-color: #EFE3C8;
+    font-family: 'Inter';
+    font-style: italic;
+}
+
+input::file-selector-button {
+    font-weight: bold;
+    background: #816A3A;
+    color: #FFFFFF;
+    padding: 0.5em;
+    border: thin solid #816A3A;
+    border-radius: 45px;
+}
+
+@media only screen and (max-device-width: 420px) {
+    .recipe-form > form {
+        font-size: 30px;
+    }
+
+    .recipe-form > form > select, textarea, input {
+        font-size: 25px;
+    }
+
+    .recipe-form > form > button {
+        width: 70%;
+    }
+
+    .recipe-form > form > select > option {
+        font-size: 15px;
+    }
+}
