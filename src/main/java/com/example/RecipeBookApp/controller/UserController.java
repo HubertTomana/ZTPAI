@@ -16,7 +16,7 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    @GetMapping
+    @GetMapping("/users")
     public List<User> getUsers() {
         return userRepository.findAll();
     }
@@ -31,7 +31,18 @@ public class UserController {
 
     }
 
-    @PostMapping
+    @GetMapping("/user/{id}")
+    public User getUser(@PathVariable Long id) {
+        if(!userRepository.existsById(id)) {
+            return null;
+        }
+        //TODO dodac error
+        return userRepository.findById(id).orElse(null);
+
+
+    }
+
+    @PostMapping("/users")
     public void addUser(@RequestBody NewUserRequest request) {
         User user = new User();
         user.setName(request.name());
@@ -39,5 +50,15 @@ public class UserController {
         user.setEmail(request.email());
         user.setPassword(request.password());
         userRepository.save(user);
+    }
+
+    @DeleteMapping("/user/{id}")
+    public String deleteUser(@PathVariable Long id) {
+        if(!userRepository.existsById(id)) {
+            //TODO dodac error
+            return "There is no user with this id";
+        }
+        userRepository.deleteById(id);
+        return "User with id "+ id + " has been deleted";
     }
 }

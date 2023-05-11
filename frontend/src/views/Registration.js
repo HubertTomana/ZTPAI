@@ -19,7 +19,7 @@ const Registration = () => {
     function handleSubmit(event) {
         event.preventDefault()
         console.log(post)
-        axios.post('api', post)
+        axios.post('api/users', post)
         .then(response => console.log(response))
         .catch(err => console.log(err))
 

@@ -2,52 +2,72 @@ import React from 'react';
 import logo from './logo.svg';
 import "../css/Style.css"
 import "../css/Profile.css"
+import { useState } from 'react'
+import axios from 'axios'
 
 const Profile = () => {
+
+    const [post, setPost] = useState({
+        id: ''
+    })
+    const handleInput = (event) => {
+        setPost({...post, [event.target.name]: event.target.value})
+    }
+
+    function handleSubmit(id, event) {
+        event.preventDefault()
+        console.log(post)
+        axios.delete('api/user/1')
+        .then(response => console.log(response))
+        .catch(err => console.log(err))
+
+    }
+
     return (
-        <div class="content">
-            <div class="base-container">
+        <div className="content">
+            <div className="base-container">
                 <nav>
-                    <a href="http://localhost:3000/recipes" class="button">
-                        <div class="buttonNav-NoBold">
+                    <a href="http://localhost:3000/recipes" className="button">
+                        <div className="buttonNav-NoBold">
                             My Book
                         </div>
                     </a>
-                    <a href="http://localhost:3000/profile" class="button">
-                        <div class="buttonNav-Bold">
+                    <a href="http://localhost:3000/profile" className="button">
+                        <div className="buttonNav-Bold">
                             My Profile
                         </div>
                     </a>
                 </nav>
-                <div class="rectangle-profile">
-                    <div class="profile-menu">
-                        <div class="profile-menu-rectangle">
-                            <div class="profile-menu-bar">
+                <div className="rectangle-profile">
+                    <div className="profile-menu">
+                        <div className="profile-menu-rectangle">
+                            <div className="profile-menu-bar">
                                 IMIE
                             </div>
-                            <div class="profile-menu-bar">
+                            <div className="profile-menu-bar">
                                 NAZWISKO
                             </div>
-                            <div class="profile-menu-bar">
+                            <div className="profile-menu-bar">
                                 EMAIL
                             </div>
-                            <a class="profile-button" href="http://localhost:3000/">
+                            <a className="profile-button" href="http://localhost:3000/">
                                 LOGOUT
                             </a>
                         </div>
                     </div>
                     <img src={logo} className="App-logo" alt="logo"/>
-                    <div class="statistics-menu">
-                        <div class="statistics-rectangle">
+                    <div className="statistics-menu">
+                        <div className="statistics-rectangle">
                             Number Of My Recipes
-                            <div class="statistics-bar">
+                            <div className="statistics-bar">
                                 10
                             </div>
-                            <p></p>
-                            Number Of All Recipes
-                            <div class="statistics-bar">
-                                15
-                            </div>
+                            <form className="recipes" onSubmit={handleSubmit}>
+                            <input name="id" type="search-placeholder" placeholder="Choose ID to delete" onChange={handleInput}/>
+                            <button className="profile-button" type="submit">
+                                <i className="fa-solid fa-trash-can"></i> &nbsp; Delete
+                            </button>
+                        </form>
                         </div>
                     </div>
                 </div>

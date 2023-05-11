@@ -2,22 +2,36 @@ package com.example.RecipeBookApp.model;
 
 import jakarta.persistence.*;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User {
 
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
+
     private String name;
+
     private String surname;
+
     private String email;
+
     private String password;
+
     private Integer amountOfRecipes = 0;
-    @OneToMany
-    private List<Recipe> recipes = new ArrayList<>();
+
+    private String role = "client";
+
+    @ManyToMany
+    @JoinTable(name = "users_recipes",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "recipes_id"))
+    private Set<Recipe> recipes = new LinkedHashSet<>();
+
 
     public Long getId() {
         return id;
@@ -39,11 +53,15 @@ public class User {
         return password;
     }
 
+    public String getRole() {
+        return role;
+    }
+
     public Integer getAmountOfRecipes() {
         return amountOfRecipes;
     }
 
-    public List<Recipe> getRecipes() {
+    public Set<Recipe> getRecipes() {
         return recipes;
     }
 
@@ -67,11 +85,15 @@ public class User {
         this.password = password;
     }
 
+    public void setRole(String role) {
+        this.role = role;
+    }
+
     public void setAmountOfRecipes(Integer amountOfRecipes) {
         this.amountOfRecipes = amountOfRecipes;
     }
 
-    public void setRecipes(List<Recipe> recipes) {
+    public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
     }
 }
