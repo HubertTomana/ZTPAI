@@ -13,7 +13,7 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
     private String title;
 
@@ -43,7 +43,7 @@ public class Recipe {
         return recipeIngredients;
     }
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -67,7 +67,7 @@ public class Recipe {
         this.recipeIngredients = recipeIngredients;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

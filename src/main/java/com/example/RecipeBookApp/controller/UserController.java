@@ -7,8 +7,9 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/apitest")
 public class UserController {
+    /*
 
     private final UserRepository userRepository;
 
@@ -32,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User getUser(@PathVariable Long id) {
+    public User getUser(@PathVariable Integer id) {
         if(!userRepository.existsById(id)) {
             return null;
         }
@@ -53,7 +54,7 @@ public class UserController {
     }
 
     @DeleteMapping("/user/{id}")
-    public String deleteUser(@PathVariable Long id) {
+    public String deleteUser(@PathVariable Integer id) {
         if(!userRepository.existsById(id)) {
             //TODO dodac error
             return "There is no user with this id";
@@ -61,4 +62,6 @@ public class UserController {
         userRepository.deleteById(id);
         return "User with id "+ id + " has been deleted";
     }
+
+     */
 }

@@ -12,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    private Long id;
+    private Integer id;
 
     private String name;
 
@@ -33,7 +33,7 @@ public class User {
     private Set<Recipe> recipes = new LinkedHashSet<>();
 
 
-    public Long getId() {
+    public Integer getId() {
         return id;
     }
 
@@ -65,7 +65,7 @@ public class User {
         return recipes;
     }
 
-    public void setId(Long id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -95,5 +95,10 @@ public class User {
 
     public void setRecipes(Set<Recipe> recipes) {
         this.recipes = recipes;
+    }
+
+    public void addRecipes(Recipe recipe) {
+        recipes.add(recipe);
+        amountOfRecipes = amountOfRecipes + 1;
     }
 }
