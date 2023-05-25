@@ -23,9 +23,9 @@ public class Recipe {
 
     private String type;
 
-    @OneToMany(mappedBy = "idRecipe")
-    private Set<RecipeIngredient> recipeIngredients = new LinkedHashSet<>();
-
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "id_user", nullable = false)
+    private User user;
 
     public String getInstruction() {
         return instruction;
@@ -39,16 +39,16 @@ public class Recipe {
         return type;
     }
 
-    public Set<RecipeIngredient> getRecipeIngredients() {
-        return recipeIngredients;
-    }
-
     public Integer getId() {
         return id;
     }
 
     public String getTitle() {
         return title;
+    }
+
+    public Integer getUser() {
+        return user.getId();
     }
 
     public void setInstruction(String instruction) {
@@ -63,15 +63,15 @@ public class Recipe {
         this.type = type;
     }
 
-    public void setRecipeIngredients(Set<RecipeIngredient> recipeIngredients) {
-        this.recipeIngredients = recipeIngredients;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

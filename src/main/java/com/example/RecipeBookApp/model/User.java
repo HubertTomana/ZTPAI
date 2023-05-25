@@ -22,16 +22,7 @@ public class User {
 
     private String password;
 
-    private Integer amountOfRecipes = 0;
-
     private String role = "client";
-
-    @ManyToMany
-    @JoinTable(name = "users_recipes",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "recipes_id"))
-    private Set<Recipe> recipes = new LinkedHashSet<>();
-
 
     public Integer getId() {
         return id;
@@ -57,14 +48,6 @@ public class User {
         return role;
     }
 
-    public Integer getAmountOfRecipes() {
-        return amountOfRecipes;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
     public void setId(Integer id) {
         this.id = id;
     }
@@ -87,18 +70,5 @@ public class User {
 
     public void setRole(String role) {
         this.role = role;
-    }
-
-    public void setAmountOfRecipes(Integer amountOfRecipes) {
-        this.amountOfRecipes = amountOfRecipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
-
-    public void addRecipes(Recipe recipe) {
-        recipes.add(recipe);
-        amountOfRecipes = amountOfRecipes + 1;
     }
 }
