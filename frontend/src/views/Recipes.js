@@ -20,6 +20,9 @@ const Recipes = () => {
         
     }, [])
 
+function getLink(id_recipe) {
+    return "http://localhost:3000/" + id_recipe
+}
 
     return (
         <div className="content">
@@ -75,8 +78,11 @@ const Recipes = () => {
                                         <div id="recipe-1">
                                             <img></img>
                                                 <div>
-                                                    <h2> {post.title} </h2>
+                                                    <h2>
+                                                        <a href={getLink(post.id)}> {post.title} </a>
+                                                    </h2>
                                                     <p> {post.instruction} </p>
+                                                    
                                                 </div>                                            
                                         </div>
                                     ))
