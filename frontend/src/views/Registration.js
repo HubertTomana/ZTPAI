@@ -41,8 +41,14 @@ const Registration = () => {
         event.preventDefault()
         console.log(newUser)
         axios.post('users/add', newUser)
-        .then(response => console.log(response))
-        .catch(err => console.log(err))
+        .then(function (response) {
+            console.log(response.data.token);
+            sessionStorage.setItem('token', response.data.token);
+            window.location.href = '/login';
+          })
+          .catch(function (error) {
+            console.log("Brak dostepu");
+          });
 
     }
 

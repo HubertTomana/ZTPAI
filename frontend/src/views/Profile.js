@@ -17,13 +17,32 @@ const Profile = () => {
         setPost({...post, [event.target.name]: event.target.value})
     }
 
-    function handleSubmit(id, event) {
+    async function handleSubmit(id, event) {
         event.preventDefault()
         console.log(post)
         axios.delete('api/user/1')
         .then(response => console.log(response))
         .catch(err => console.log(err))
 
+    }
+
+ /*   async function handleLogout(e) {
+        e.preventDefault()
+        console.log("Logout")
+        .then(function (response){
+            console.log(response);
+            sessionStorage.removeItem('token');
+            window.location.href = '/login';
+          })
+          .catch(function(error){
+            console.log(error)
+          })
+
+    }
+*/
+    const handleLogout = () => {
+        sessionStorage.removeItem('token');
+        window.location.href = '/login';
     }
 
     return (
@@ -53,9 +72,9 @@ const Profile = () => {
                             <div className="profile-menu-bar">
                                 EMAIL
                             </div>
-                            <a className="profile-button" href="http://localhost:3000/">
+                            <button className="profile-button" onClick={handleLogout}>
                                 LOGOUT
-                            </a>
+                            </button>
                         </div>
                     </div>
                     <img src={logo} className="App-logo" alt="logo"/>

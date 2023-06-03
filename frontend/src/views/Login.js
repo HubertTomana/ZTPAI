@@ -5,9 +5,9 @@ import axios from 'axios';
 
 const Login = () => {
 
-    const [messages, setMessages] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [noAccess, setNoAccess] = useState('');
 
     async function handleLogin(e){
     e.preventDefault();
@@ -27,7 +27,7 @@ const Login = () => {
       window.location.href = '/recipes';
     })
     .catch(function(error){
-      console.log("error:" + error)
+      setNoAccess("Wrong login or password");
     })
   }  
 
@@ -40,9 +40,9 @@ const Login = () => {
                     PUZZLE
                     CAKE
                 </div>
-                <div className ="login-container">
-                    {messages}
+                <div className ="login-container">                    
                     <form className="login-elem">
+                        <div>{noAccess}</div>
                         <input 
                             className="email"
                             name="email"
