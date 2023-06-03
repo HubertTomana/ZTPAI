@@ -43,8 +43,9 @@ public class RecipeController {
         recipe.setTitle(request.title());
         recipe.setType(request.recipeType());
         recipe.setInstruction(request.instruction());
+        recipe.setUser(userRepository.getReferenceById(id_user));
         recipeRepository.save(recipe);
-        userRepository.getReferenceById(id_user).addRecipes(recipe);
+        System.out.println(userRepository.getReferenceById(id_user));
         return ResponseEntity.ok("recipe added");
     }
 
