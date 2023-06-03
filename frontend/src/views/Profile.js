@@ -4,8 +4,11 @@ import "../css/Style.css"
 import "../css/Profile.css"
 import { useState } from 'react'
 import axios from 'axios'
+import jwt_decode from 'jwt-decode'
 
 const Profile = () => {
+    const token = sessionStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
 
     const [post, setPost] = useState({
         id: ''
@@ -42,7 +45,7 @@ const Profile = () => {
                     <div className="profile-menu">
                         <div className="profile-menu-rectangle">
                             <div className="profile-menu-bar">
-                                IMIE
+                            {decodedToken.userid}
                             </div>
                             <div className="profile-menu-bar">
                                 NAZWISKO

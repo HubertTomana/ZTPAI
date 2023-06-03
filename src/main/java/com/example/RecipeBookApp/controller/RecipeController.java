@@ -48,29 +48,4 @@ public class RecipeController {
         System.out.println(userRepository.getReferenceById(id_user));
         return ResponseEntity.ok("recipe added");
     }
-
-    @GetMapping("/users")
-    public List<User> getUsers() {
-        return userRepository.findAll();
-    }
-
-    record NewUserRequest(
-            String name,
-            String surname,
-            String email,
-            String password
-
-    ) {
-
-    }
-
-    @PostMapping("/users")
-    public void addUser(@RequestBody NewUserRequest request) {
-        User user = new User();
-        user.setName(request.name());
-        user.setSurname(request.surname());
-        user.setEmail(request.email());
-        user.setPassword(request.password());
-        userRepository.save(user);
-    }
 }

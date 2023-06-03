@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const Recipes = () => {
 
+    const token = sessionStorage.getItem('token')
     const [posts, setPosts] = useState([])
 
     useEffect(() => {

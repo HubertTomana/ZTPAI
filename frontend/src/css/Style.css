@@ -73,7 +73,7 @@ a.login {
     width: 60vw;
 }
 
-form.login {
+form.login-elem {
     display: flex;
     flex-direction: column;
     justify-content: center;
