@@ -1,9 +1,6 @@
 package com.example.RecipeBookApp.controller;
 
-import com.example.RecipeBookApp.model.Recipe;
-import com.example.RecipeBookApp.model.RecipeRepository;
-import com.example.RecipeBookApp.model.User;
-import com.example.RecipeBookApp.model.UserRepository;
+import com.example.RecipeBookApp.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,10 +14,12 @@ public class RecipeController {
 
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
+    private final IngredientRepository ingredientRepository;
 
-    public RecipeController(RecipeRepository recipeRepository, UserRepository userRepository) {
+    public RecipeController(RecipeRepository recipeRepository, UserRepository userRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.userRepository = userRepository;
+        this.ingredientRepository = ingredientRepository;
     }
 
     @GetMapping("/recipes")
@@ -47,5 +46,11 @@ public class RecipeController {
         recipeRepository.save(recipe);
         System.out.println(userRepository.getReferenceById(id_user));
         return ResponseEntity.ok("recipe added");
+    }
+
+    @GetMapping("/ingredients")
+    public List<Ingredient> getIngredients() {
+        System.out.println(ingredientRepository.findAll());
+        return ingredientRepository.findAll();
     }
 }
