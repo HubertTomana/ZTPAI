@@ -2,17 +2,22 @@ import React from 'react';
 import logo from './logo.svg';
 import "../css/Style.css"
 import "../css/Profile.css"
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
 const Profile = () => {
     const token = sessionStorage.getItem('token');
     const decodedToken = jwt_decode(token);
+    const userId = decodedToken.userid;
+    function getLink(userId) {
+        return "users/" + userId
+    }
 
     const [post, setPost] = useState({
         id: ''
     })
+
     const handleInput = (event) => {
         setPost({...post, [event.target.name]: event.target.value})
     }
@@ -26,20 +31,20 @@ const Profile = () => {
 
     }
 
- /*   async function handleLogout(e) {
-        e.preventDefault()
-        console.log("Logout")
-        .then(function (response){
-            console.log(response);
-            sessionStorage.removeItem('token');
-            window.location.href = '/login';
-          })
-          .catch(function(error){
-            console.log(error)
-          })
+    const [userDetails, setUserDetails] = useState([])
+    useEffect(() => {
+        axios.get(getLink(userId))
+        .then(res => {
+            console.log(res)
+            setUserDetails(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        
+    }, [])
 
-    }
-*/
+
     const handleLogout = () => {
         sessionStorage.removeItem('token');
         window.location.href = '/login';
@@ -64,13 +69,13 @@ const Profile = () => {
                     <div className="profile-menu">
                         <div className="profile-menu-rectangle">
                             <div className="profile-menu-bar">
-                            {decodedToken.userid}
+                            {userDetails.name}
                             </div>
                             <div className="profile-menu-bar">
-                                NAZWISKO
+                            {userDetails.surname}
                             </div>
                             <div className="profile-menu-bar">
-                                EMAIL
+                            {userDetails.email}
                             </div>
                             <button className="profile-button" onClick={handleLogout}>
                                 LOGOUT

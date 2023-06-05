@@ -5,6 +5,7 @@ import "../css/Recipes.css"
 import {useState, useEffect} from 'react'
 import axios from 'axios'
 import Select from 'react-select';
+import jwt_decode from 'jwt-decode'
 
 const AddRecipe = () => {
     /*
@@ -27,7 +28,8 @@ const AddRecipe = () => {
 
         }
     */
-
+    const token = sessionStorage.getItem('token');
+    const decodedToken = jwt_decode(token);
     const [ingredients, setIngredients] = useState([]);
     const [selectedIngredients, setSelectedIngredients] = useState([]);
     const [newIngredient, setNewIngredient] = useState('');
@@ -100,18 +102,34 @@ const AddRecipe = () => {
         //console.log('Wybrane składniki:', selectedIngredients);
         event.preventDefault()
         console.log('Wybrane składniki:', selectedIngredients)
+        //const formData = new FormData();
+        //formData.append('userID', decodedToken.userid)
+        //formData.append('title', recipeTitle);
+        //formData.append('type', recipeType);
+        //formData.append('ingredients', selectedIngredients.map(ingredient => ({
+        //    name: ingredient.label,
+        //    quantity: ingredient.quantity || 0
+        //    })));
+        //formData.append('instruction', recipeInstruction);
+        //formData.append('image', recipeImage);
           const recipeData = {
+            userID: decodedToken.userid,
             title: recipeTitle,
             type: recipeType,
             ingredients: selectedIngredients.map(ingredient => ({
               name: ingredient.label,
-              quantity: ingredient.quantity || 0
+              quantity: ingredient.quantity //|| 0
             })),
             instruction: recipeInstruction,
-            image: recipeImage
+//            image: recipeImage
           };
-      
-          axios.post('api/recipes/add', recipeData)
+          console.log(recipeData.image)
+        //for (const entry of formData.entries()) {
+        //    console.log(entry[0], entry[1]);
+        //  }
+        //console.log(formData.get('image'))
+          axios.post("api/recipes", recipeData)
+        //    axios.post("api/recipes", formData)
             .then(response => {
               console.log('Przepis został dodany:', response.data);
               // Wykonaj odpowiednie akcje po pomyślnym dodaniu przepisu
@@ -187,6 +205,8 @@ const AddRecipe = () => {
                                 </select>
                                 <input type="text" value={recipeTitle} placeholder="Title" onChange={handleRecipeTitleChange} />
                                 <Select 
+                                    placeholder="Ingredients"
+                                    className='ingredient-select'
                                     isMulti
                                     options={ingredientOptions}
                                     value={selectedIngredients}
@@ -195,10 +215,8 @@ const AddRecipe = () => {
                                 {selectedIngredients.map(ingredient => (
                                 <div key={ingredient.value}>
                                 <label>
-                                    {ingredient.label} - ilość:
+                                    {ingredient.label}
                                     <input
-                                        type="number"
-                                        min="0"
                                         value={ingredient.quantity || ''}
                                         onChange={e => handleQuantityChange(ingredient.value, e.target.value)}
                                     />
@@ -207,6 +225,7 @@ const AddRecipe = () => {
                                 ))}
                                 <textarea value={recipeInstruction} rows="5" placeholder="Instruction" onChange={handleRecipeInstructionChange}></textarea>
                                 <button type="submit">Save</button>
+                                <input type="file" className="image" onChange={handleRecipeImageChange}></input>
                             </form>
                         </section>
                     </div>

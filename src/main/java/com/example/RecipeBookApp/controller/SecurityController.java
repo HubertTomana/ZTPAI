@@ -75,6 +75,18 @@ public class SecurityController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(ex.getMessage());
         }
     }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
+        User user = userRepository.findById(userId).orElse(null);
+        if (user != null) {
+            return ResponseEntity.ok(user);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
+
     private Key getSignInKey() {
         byte[] keyBytes = Base64.getDecoder().decode(KEY);
         return Keys.hmacShaKeyFor(keyBytes);

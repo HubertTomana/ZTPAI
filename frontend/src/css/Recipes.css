@@ -79,6 +79,14 @@ section.recipe-form {
     font-style: italic;
 }
 
+.ingredient-select {
+    border-radius: 15px;
+    background-color: #EFE3C8;
+    font-family: 'Inter';
+    font-style: italic;
+}
+
+
 input::file-selector-button {
     font-weight: bold;
     background: #816A3A;

@@ -24,7 +24,7 @@ public class SecurityConfig {
                 .cors()
                 .and()
                 .authorizeHttpRequests()
-                .requestMatchers("/api/recipes", "/users/add", "/users/get", "/api/ingredients")
+                .requestMatchers("/api/recipes", "/users/add", "/users/get", "/users/{userId}", "/api/ingredients")
                 .permitAll()
                 .and()
                 .authorizeHttpRequests().requestMatchers("/**").authenticated()
