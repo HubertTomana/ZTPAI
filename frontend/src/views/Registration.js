@@ -43,8 +43,8 @@ const Registration = () => {
         axios.post('users/add', newUser)
         .then(function (response) {
             console.log(response.data.token);
-            sessionStorage.setItem('token', response.data.token);
-            window.location.href = '/login';
+            //sessionStorage.setItem('token', response.data.token);
+            window.location.href = '/';
           })
           .catch(function (error) {
             console.log("Brak dostepu");

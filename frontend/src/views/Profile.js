@@ -10,6 +10,7 @@ const Profile = () => {
     const token = sessionStorage.getItem('token');
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userid;
+    const role = decodedToken.role;
     function getLink(userId) {
         return "users/" + userId
     }
@@ -89,12 +90,14 @@ const Profile = () => {
                             <div className="statistics-bar">
                                 10
                             </div>
+                            {role === 'ADMIN' &&
                             <form className="recipes" onSubmit={handleSubmit}>
                             <input name="id" type="search-placeholder" placeholder="Choose ID to delete" onChange={handleInput}/>
                             <button className="profile-button" type="submit">
                                 <i className="fa-solid fa-trash-can"></i> &nbsp; Delete
                             </button>
                         </form>
+                        }
                         </div>
                     </div>
                 </div>

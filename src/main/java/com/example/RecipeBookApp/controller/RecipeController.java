@@ -1,11 +1,15 @@
 package com.example.RecipeBookApp.controller;
 
 import com.example.RecipeBookApp.dto.IngredientDto;
+import com.example.RecipeBookApp.dto.RecipeResponseDto;
 import com.example.RecipeBookApp.model.*;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/api")
@@ -70,6 +74,38 @@ public class RecipeController {
 
 
         return ResponseEntity.ok("recipe added");
+    }
+
+    record NewRecipeResponse(
+            String type,
+            String title,
+            List<IngredientDto> ingredients,
+            String instruction
+    ) {
+
+    }
+
+    @GetMapping("/recipes/{recipeId}")
+    public ResponseEntity<RecipeResponseDto> getRecipeById(@PathVariable Integer recipeId) {
+        Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
+        List<IngredientDto> ingredientDto = recipeIngredientRepository.getListOfIngredients(recipe).orElse(null);
+        //Map<String, String> ingredientMapWithName = new HashMap<>();
+        //if (ingredientMapWithId != null) {
+        //    ingredientMapWithId.forEach((key, value) -> ingredientMapWithName.put(key.getName(), value));
+        //}
+        RecipeResponseDto recipeResponse = new RecipeResponseDto();
+        if(recipe != null) {
+            recipeResponse.setTitle(recipe.getTitle());
+            recipeResponse.setType(recipe.getType());
+            recipeResponse.setListOfIngredients(ingredientDto);
+            recipeResponse.setInstruction(recipe.getInstruction());
+            System.out.println("Oto nasz response : " + recipeResponse);
+            return ResponseEntity.ok(recipeResponse);
+        }
+        else {
+            return ResponseEntity.notFound().build();
+        }
+
     }
 
     @GetMapping("/ingredients")

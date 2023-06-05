@@ -8,6 +8,19 @@ const Recipes = () => {
 
     const token = sessionStorage.getItem('token')
     const [posts, setPosts] = useState([])
+    const [recipeDetails, setRecipeDetails] = useState(null);
+    function getLink(recipeId) {
+        return "api/recipes/" + recipeId
+    }
+
+    const handleRecipeClick = async (recipeId) => {
+    try {
+      const response = await axios.get(`api/recipes/${recipeId}`);
+      setRecipeDetails(response.data);
+    } catch (error) {
+      console.error('Error fetching recipe details:', error);
+    }
+  };
 
     useEffect(() => {
         axios.get("api/recipes")
@@ -22,7 +35,7 @@ const Recipes = () => {
     }, [])
 
 function getLink(id_recipe) {
-    return "http://localhost:3000/" + id_recipe
+    return "http://localhost:3000/recipes/" + id_recipe
 }
 
     return (
@@ -74,20 +87,33 @@ function getLink(id_recipe) {
                             </a>
                         </header>
                         <section className="recipes">
-                                {
-                                    posts.map(post => (
-                                        <div id="recipe-1">
+                        {
+                                    recipeDetails ? 
+                                    (
+                                        <div>
+                                            <h2>{recipeDetails.title}</h2>
+                                            <p>{recipeDetails.type}</p>
+                                            <p>{recipeDetails.instruction}</p>
+                                            <p>{recipeDetails.listOfIngredients.map(ingredient => (
+                                                <p>{ingredient.name} : {ingredient.quantity}</p>
+                                            ))}
+                                            </p>
+                                            
+                                    </div>
+                                    )
+                                    : posts.map(post => (
+                                        <div id="recipe-1" onClick={() => handleRecipeClick(post.id)}>
                                             <img></img>
                                                 <div>
                                                     <h2>
-                                                        <a href={getLink(post.id)}> {post.title} </a>
-                                                    </h2>
-                                                    <p> {post.instruction} </p>
-                                                    
+                                                    {post.title}                                                    
+                                                    </h2>                                                   
                                                 </div>                                            
                                         </div>
                                     ))
-                                }                           
+                                }
+
+                                        
                         </section>
                     </div>
                 </div>

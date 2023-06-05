@@ -22,4 +22,12 @@ public class IngredientDto {
     public void setQuantity(String quantity) {
         this.quantity = quantity;
     }
+
+    public IngredientDto(String name, String quantity) {
+        this.name = name;
+        this.quantity = quantity;
+    }
+
+    public IngredientDto() {
+    }
 }
