@@ -23,4 +23,36 @@ public class RecipeIngredient {
     private Recipe idRecipe;
 
     private String amount;
+
+    public Integer getId() {
+        return id;
+    }
+
+    public Ingredient getIdIngredient() {
+        return idIngredient;
+    }
+
+    public Recipe getIdRecipe() {
+        return idRecipe;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setIdIngredient(Ingredient idIngredient) {
+        this.idIngredient = idIngredient;
+    }
+
+    public void setIdRecipe(Recipe idRecipe) {
+        this.idRecipe = idRecipe;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
 }

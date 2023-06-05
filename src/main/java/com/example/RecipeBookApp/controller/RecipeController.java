@@ -60,7 +60,14 @@ public class RecipeController {
 */
 
         Recipe newRecipe = recipeRepository.save(recipe);
-        RecipeIngredient recipeIngredient = new RecipeIngredient();
+        for (IngredientDto ingredient : request.ingredients()) {
+            RecipeIngredient recipeIngredient = new RecipeIngredient();
+            recipeIngredient.setIdRecipe(newRecipe);
+            recipeIngredient.setIdIngredient(ingredientRepository.findByName(ingredient.getName()).orElse(null));
+            recipeIngredient.setAmount(ingredient.getQuantity());
+            recipeIngredientRepository.save(recipeIngredient);
+        }
+
 
         return ResponseEntity.ok("recipe added");
     }
