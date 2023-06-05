@@ -8,26 +8,7 @@ import Select from 'react-select';
 import jwt_decode from 'jwt-decode'
 
 const AddRecipe = () => {
-    /*
-        const [post, setPost] = useState({
-            recipeType: '',
-            title : '',
-            ingredients : '',
-            instruction : ''
-        })
-        const handleInput = (event) => {
-            setPost({...post, [event.target.name]: event.target.value})
-        }
 
-        function handleSubmit(event) {
-            event.preventDefault()
-            console.log(post)
-            axios.post('api/recipes', post)
-            .then(response => console.log(response))
-            .catch(err => console.log(err))
-
-        }
-    */
     const token = sessionStorage.getItem('token');
     const decodedToken = jwt_decode(token);
     const [ingredients, setIngredients] = useState([]);
@@ -39,7 +20,6 @@ const AddRecipe = () => {
     const [recipeImage, setRecipeImage] = useState('');
 
     useEffect(() => {
-        // Wywołanie API w celu pobrania listy składników z aplikacji Spring Boot
         axios.get('api/ingredients')
             //.then(response => response.json())
             .then(res => {
@@ -97,42 +77,23 @@ const AddRecipe = () => {
     };
 
     const handleSubmit = event => {
-        //event.preventDefault();
-        // Wykonanie odpowiednich działań z wybranymi składnikami i ich ilościami, np. zapisanie ich do przepisu
-        //console.log('Wybrane składniki:', selectedIngredients);
         event.preventDefault()
         console.log('Wybrane składniki:', selectedIngredients)
-        //const formData = new FormData();
-        //formData.append('userID', decodedToken.userid)
-        //formData.append('title', recipeTitle);
-        //formData.append('type', recipeType);
-        //formData.append('ingredients', selectedIngredients.map(ingredient => ({
-        //    name: ingredient.label,
-        //    quantity: ingredient.quantity || 0
-        //    })));
-        //formData.append('instruction', recipeInstruction);
-        //formData.append('image', recipeImage);
           const recipeData = {
             userID: decodedToken.userid,
             title: recipeTitle,
             type: recipeType,
             ingredients: selectedIngredients.map(ingredient => ({
               name: ingredient.label,
-              quantity: ingredient.quantity //|| 0
+              quantity: ingredient.quantity
             })),
             instruction: recipeInstruction,
 //            image: recipeImage
           };
           console.log(recipeData.image)
-        //for (const entry of formData.entries()) {
-        //    console.log(entry[0], entry[1]);
-        //  }
-        //console.log(formData.get('image'))
           axios.post("api/recipes", recipeData)
-        //    axios.post("api/recipes", formData)
             .then(response => {
               console.log('Przepis został dodany:', response.data);
-              // Wykonaj odpowiednie akcje po pomyślnym dodaniu przepisu
             })
             .catch(error => console.error(error));
     };
@@ -140,7 +101,6 @@ const AddRecipe = () => {
     const ingredientOptions = ingredients.map(ingredient => ({
         value: ingredient.id,
         label: ingredient.name
-        //value: ingredient.name
     }));
 
 

@@ -119,9 +119,11 @@ input, textarea, select {
     }
 
     .upper {
+        display: flex;
         flex-direction: column;
         width: 100%;
-        font-size: 100px;
+        font-size: 90px;
+        text-align: center;
     }
 
     .upper > img {
@@ -133,10 +135,19 @@ input, textarea, select {
         font-size: 40px;
     }
 
-    form.login > input, button {
+    form.login-elem > input, button {
         width: 100%;
-        font-size: 30px;
+        font-size: 20px;
+        font-family: 'Inter';
+        font-style: italic;
     }
+
+    form.login-elem > div {
+        font-size: 20px;
+        font-family: 'Inter';
+        font-style: italic; 
+    }
+
 }
 
 .base-container {
@@ -310,9 +321,6 @@ a:active {
     text-decoration: none;
 }
 
-form.recipes {
-}
-
 input[type="search-placeholder"]::placeholder {
     color: #FFFFFF;
     opacity: 1; /* Firefox */
@@ -335,6 +343,15 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
 
 /*My book*/
 @media only screen and (max-device-width: 420px) {
+
+    .buttonNav-NoBold {
+        font-size: 30px;
+    }
+
+    .buttonNav-Bold {
+        font-size: 30px;
+    }
+
     .search-menu {
         justify-content: space-around;
     }
@@ -346,6 +363,11 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
     .search-menu-button {
         height: 5vh;
         letter-spacing: 0.1em;
+        font-size: 10px;
+    }
+
+    header {
+        padding: 1em 0em;
     }
 
     .search-bar {
@@ -354,8 +376,8 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
 
     .search-bar > input {
         height: 50%;
-        font-size: 35px;
-        letter-spacing: 0.1em;
+        font-size: 12px;
+        
     }
 
     .add-recipe {
@@ -363,7 +385,10 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
         align-items: center;
         align-content: center;
         flex-wrap: wrap;
+        width: 15vw;
         border-radius: 90px;
+        font-size: 10px;
+        text-align: center;
     }
 
     .recipes {

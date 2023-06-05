@@ -11,23 +11,28 @@ const Profile = () => {
     const decodedToken = jwt_decode(token);
     const userId = decodedToken.userid;
     const role = decodedToken.role;
+    const [message, setMessage] = useState('');
+    const [post, setPost] = useState('')
     function getLink(userId) {
         return "users/" + userId
     }
-
-    const [post, setPost] = useState({
-        id: ''
-    })
+    
 
     const handleInput = (event) => {
-        setPost({...post, [event.target.name]: event.target.value})
+        setPost(event.target.value)
     }
 
-    async function handleSubmit(id, event) {
+    const handleSubmit = event => {
         event.preventDefault()
         console.log(post)
-        axios.delete('api/user/1')
-        .then(response => console.log(response))
+        const deleteData = {
+            userToDeleteId: post
+        }
+        axios.post("users/delete", deleteData)
+        .then(response => {
+            console.log(response)
+            setMessage(response.data)
+        })
         .catch(err => console.log(err))
 
     }
@@ -91,8 +96,10 @@ const Profile = () => {
                                 10
                             </div>
                             {role === 'ADMIN' &&
+                            
                             <form className="recipes" onSubmit={handleSubmit}>
-                            <input name="id" type="search-placeholder" placeholder="Choose ID to delete" onChange={handleInput}/>
+                                {message}
+                            <input className="id" name="userToDeleteId" type="search-placeholder" placeholder="Choose ID to delete" onChange={handleInput}/>
                             <button className="profile-button" type="submit">
                                 <i className="fa-solid fa-trash-can"></i> &nbsp; Delete
                             </button>
