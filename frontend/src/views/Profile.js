@@ -28,6 +28,8 @@ const Profile = () => {
         const deleteData = {
             userToDeleteId: post
         }
+        console.log(typeof post)
+        console.log(deleteData)
         axios.post("users/delete", deleteData)
         .then(response => {
             console.log(response)

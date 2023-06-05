@@ -1,12 +1,9 @@
 package com.example.RecipeBookApp.controller;
 
 import com.example.RecipeBookApp.dto.AuthResponseDto;
-import com.example.RecipeBookApp.dto.IngredientDto;
 import com.example.RecipeBookApp.dto.LoginDto;
 import com.example.RecipeBookApp.dto.RegisterDto;
-import com.example.RecipeBookApp.model.RecipeRepository;
-import com.example.RecipeBookApp.model.User;
-import com.example.RecipeBookApp.model.UserRepository;
+import com.example.RecipeBookApp.model.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
@@ -17,29 +14,32 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Key;
 import java.util.Base64;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 
 
 @RestController
 @RequestMapping("/users")
+@Transactional
 public class SecurityController {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final RecipeRepository recipeRepository;
+    private final RecipeIngredientRepository recipeIngredientRepository;
     private static final String KEY = "d04jr0NIz4j0zURu0Euy3QtqFFZcpnrLol6HpyYtV6SMcYGBOwL9A41b355meW7";
 
-    public SecurityController(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, RecipeRepository recipeRepository) {
+    public SecurityController(UserRepository userRepository, PasswordEncoder passwordEncoder, AuthenticationManager authenticationManager, RecipeRepository recipeRepository, RecipeIngredientRepository recipeIngredientRepository) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
         this.authenticationManager = authenticationManager;
         this.recipeRepository = recipeRepository;
+        this.recipeIngredientRepository = recipeIngredientRepository;
     }
 
     @PostMapping("/get")
@@ -92,17 +92,21 @@ public class SecurityController {
     }
 
     record DeleteUserRecord(
-            Integer userToDeleteId
+            String userToDeleteId
     ) {
 
     }
 
     @PostMapping("/delete")
     public ResponseEntity<String> deleteUser(@RequestBody DeleteUserRecord record) {
-        //Integer userId = Integer.parseInt(record.userToDeleteId());
-        User user = userRepository.findById(record.userToDeleteId()).orElse(null);
+        Integer userId = Integer.parseInt(record.userToDeleteId());
+        User user = userRepository.findById(userId).orElse(null);
+        System.out.println("User id to : " + userId);
         if (user != null) {
-            recipeRepository.deleteRecipesByUser(user);
+            for (Recipe recipe : recipeRepository.findAllByUser(user)) {
+                recipeIngredientRepository.deleteByIdRecipe(recipe);
+            }
+            recipeRepository.deleteByUser(user);
             userRepository.deleteById(user.getId());
             return ResponseEntity.ok("User with id " + record.userToDeleteId() + " is deleted");
         } else {
