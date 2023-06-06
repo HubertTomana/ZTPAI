@@ -24,10 +24,14 @@
 - JavaScript
 
 
+## Diagram ERD :
+![](frontend/public/diagramER.jpg)
+
+
 ## General Information
 ##### PUZZLE CAKE is an app, that allows You to store Your and others' recipes. Below are features, which I implemented :
 * [Register and login](#register-and-login)
-* [See a list of your recipes](#see-a-list-of-your-recipes)
+* [List of recipes](#list-of-recipes)
 * [Left searching bar](#left-searching-bar)
 * [Add recipes](#add-recipes)
 * [Navigation bar](#navigation-bar)
@@ -36,6 +40,7 @@
 * [Statistics](#statistics)
 * [Roles](#roles)
 
+
 ## Login page's features :
 ### Register and login
 To create new account, You have to click button "Register" and then fill the form.
@@ -43,7 +48,7 @@ Then You can log in to Your account by using e-mail and password.
 
 ## "My book" page's features :
 
-### See a list of your recipes
+### List of recipes
 At the center of the 'My Book' page, You can see all recipes.
 
 ### Left searching bar
