@@ -94,8 +94,10 @@ const AddRecipe = () => {
         axios.post("api/recipes", recipeData)
             .then(response => {
                 console.log('Przepis został dodany:', response.data);
+                window.location.href = '/recipes'
             })
             .catch(error => console.error(error));
+            
     };
 
     const ingredientOptions = ingredients.map(ingredient => ({
