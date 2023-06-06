@@ -3,6 +3,7 @@
 ## Table of Contents
 * [Launching the application](#launching-the-application)
 * [Used Technologies](#used-technologies)
+* [Diagram ERD](#diagram-erd-)
 * [General Information](#general-information)
 * [Screenshots of application](#screenshots-of-application)
 
