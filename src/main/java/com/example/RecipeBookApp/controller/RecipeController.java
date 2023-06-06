@@ -14,8 +14,6 @@ import java.util.Map;
 @RestController
 @RequestMapping("/api")
 public class RecipeController {
-    //TODO TOKEN Z ID
-    int id_user = 2;
 
     private final RecipeRepository recipeRepository;
     private final UserRepository userRepository;
@@ -47,7 +45,6 @@ public class RecipeController {
 
     @PostMapping("/recipes")
     public ResponseEntity<String> addRecipe(@RequestBody NewRecipeRequest request) {
-        //System.out.println("Recipe type : " + request.image());
         Recipe recipe = new Recipe();
         recipe.setTitle(request.title());
         recipe.setType(request.type());
@@ -76,23 +73,10 @@ public class RecipeController {
         return ResponseEntity.ok("recipe added");
     }
 
-    record NewRecipeResponse(
-            String type,
-            String title,
-            List<IngredientDto> ingredients,
-            String instruction
-    ) {
-
-    }
-
     @GetMapping("/recipes/{recipeId}")
     public ResponseEntity<RecipeResponseDto> getRecipeById(@PathVariable Integer recipeId) {
         Recipe recipe = recipeRepository.findById(recipeId).orElse(null);
         List<IngredientDto> ingredientDto = recipeIngredientRepository.getListOfIngredients(recipe).orElse(null);
-        //Map<String, String> ingredientMapWithName = new HashMap<>();
-        //if (ingredientMapWithId != null) {
-        //    ingredientMapWithId.forEach((key, value) -> ingredientMapWithName.put(key.getName(), value));
-        //}
         RecipeResponseDto recipeResponse = new RecipeResponseDto();
         if (recipe != null) {
             recipeResponse.setTitle(recipe.getTitle());

@@ -119,11 +119,4 @@ public class SecurityController {
             return ResponseEntity.ok("User with this id doesn't exist");
         }
     }
-
-
-    private Key getSignInKey() {
-        byte[] keyBytes = Base64.getDecoder().decode(KEY);
-        return Keys.hmacShaKeyFor(keyBytes);
-    }
-
 }
