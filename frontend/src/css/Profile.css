@@ -96,7 +96,7 @@ a.profile-button {
     padding: 2em;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    justify-content: space-around;
     align-items: center;
     align-content: center;
     font-family: 'Inter';
@@ -126,7 +126,15 @@ a.profile-button {
 
 }
 
+.profile-button {
+    text-align: center;
+    background: #B6A47E;
+    color: black;
+}
+
 @media only screen and (max-device-width: 420px) {
+
+
     .rectangle-profile {
         flex-direction: column-reverse;
     }
@@ -135,27 +143,63 @@ a.profile-button {
         width: 90vw;
     }
 
-    .profile-menu-rectangle, .statistics-rectangle {
-        font-size: 40px;
+    .profile-menu-rectangle {
+        font-size: 15px;
         width: 60vw;
-        height: 30vh;
         letter-spacing: 0.1em;
         justify-content: space-between;
+        box-shadow: none;
+        margin-bottom: 10px;
+    }
+
+    .statistics-rectangle {
+        font-size: 15px;
+        width: 60vw;
+        letter-spacing: 0.1em;
+        justify-content: space-around;
+        box-shadow: none;
+    }
+
+    .statistics-rectangle > form {
+        font-size: 10px;
+    }
+
+    .id {
+        font-size: 12px;
+    }
+
+    .profile-button {
+        text-align: center;
+        width: 40vw;
+        background: #B6A47E;
+        color: black;
     }
 
     .statistics-bar {
-        font-size: 50px;
+        font-size: 15px;
     }
 
     .profile-menu-bar {
-        font-size: 40px;
+        font-size: 15px;
+        margin-bottom: 10px;
     }
 
     .profile-menu-rectangle > div {
         width: 100%;
+        height: 30%;
+        font-size: 20px;
     }
 
     .profile-menu-rectangle > div > form > input {
-        font-size: 30px;
+        font-size: 15px;
+    }
+
+    .profile-button {
+        font-size: 15px;
+    }
+
+    .App-logo {
+        width: 70px;
+        height: 70px;
     }
 }

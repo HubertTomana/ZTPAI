@@ -79,6 +79,14 @@ section.recipe-form {
     font-style: italic;
 }
 
+.ingredient-select {
+    border-radius: 15px;
+    background-color: #EFE3C8;
+    font-family: 'Inter';
+    font-style: italic;
+}
+
+
 input::file-selector-button {
     font-weight: bold;
     background: #816A3A;
@@ -90,15 +98,16 @@ input::file-selector-button {
 
 @media only screen and (max-device-width: 420px) {
     .recipe-form > form {
-        font-size: 30px;
+        font-size: 18px;
     }
 
     .recipe-form > form > select, textarea, input {
-        font-size: 25px;
+        font-size: 11px;
     }
 
     .recipe-form > form > button {
         width: 70%;
+        height: 7%;
     }
 
     .recipe-form > form > select > option {
