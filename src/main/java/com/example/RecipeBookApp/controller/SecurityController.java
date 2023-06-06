@@ -3,6 +3,7 @@ package com.example.RecipeBookApp.controller;
 import com.example.RecipeBookApp.dto.AuthResponseDto;
 import com.example.RecipeBookApp.dto.LoginDto;
 import com.example.RecipeBookApp.dto.RegisterDto;
+import com.example.RecipeBookApp.dto.UserProfileDto;
 import com.example.RecipeBookApp.model.*;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -82,10 +83,15 @@ public class SecurityController {
     }
 
     @GetMapping("/{userId}")
-    public ResponseEntity<User> getUserById(@PathVariable Integer userId) {
+    public ResponseEntity<UserProfileDto> getUserById(@PathVariable Integer userId) {
         User user = userRepository.findById(userId).orElse(null);
+        UserProfileDto userProfileDto = new UserProfileDto();
         if (user != null) {
-            return ResponseEntity.ok(user);
+            userProfileDto.setName(user.getName());
+            userProfileDto.setSurname(user.getSurname());
+            userProfileDto.setEmail(user.getEmail());
+            userProfileDto.setAmountOfRecipes(recipeRepository.countAllByUser(user));
+            return ResponseEntity.ok(userProfileDto);
         } else {
             return ResponseEntity.notFound().build();
         }

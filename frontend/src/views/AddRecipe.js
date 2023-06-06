@@ -24,7 +24,7 @@ const AddRecipe = () => {
             //.then(response => response.json())
             .then(res => {
                 console.log(res.data)
-                setIngredients(res.data)               
+                setIngredients(res.data)
             })
             .catch(error => console.log(error));
     }, []);
@@ -51,7 +51,7 @@ const AddRecipe = () => {
     const handleRecipeTitleChange = event => {
         setRecipeTitle(event.target.value);
     };
-    
+
     const handleRecipeTypeChange = event => {
         setRecipeType(event.target.value);
     };
@@ -79,21 +79,21 @@ const AddRecipe = () => {
     const handleSubmit = event => {
         event.preventDefault()
         console.log('Wybrane składniki:', selectedIngredients)
-          const recipeData = {
+        const recipeData = {
             userID: decodedToken.userid,
             title: recipeTitle,
             type: recipeType,
             ingredients: selectedIngredients.map(ingredient => ({
-              name: ingredient.label,
-              quantity: ingredient.quantity
+                name: ingredient.label,
+                quantity: ingredient.quantity
             })),
             instruction: recipeInstruction,
 //            image: recipeImage
-          };
-          console.log(recipeData.image)
-          axios.post("api/recipes", recipeData)
+        };
+        console.log(recipeData.image)
+        axios.post("api/recipes", recipeData)
             .then(response => {
-              console.log('Przepis został dodany:', response.data);
+                console.log('Przepis został dodany:', response.data);
             })
             .catch(error => console.error(error));
     };
@@ -149,7 +149,6 @@ const AddRecipe = () => {
                                 <input type="search-placeholder" placeholder="Search Recipe"/>
                             </div>
                             <a className="add-recipe" href="http://localhost:3000/addRecipe">
-                                <i className="fas fa-plus"></i>
                                 Add Recipe
                             </a>
                         </header>
@@ -163,27 +162,29 @@ const AddRecipe = () => {
                                     <option value="bottoms">Bottoms</option>
                                     <option value="full-recipe">Full Recipe</option>
                                 </select>
-                                <input type="text" value={recipeTitle} placeholder="Title" onChange={handleRecipeTitleChange} />
-                                <Select 
+                                <input type="text" value={recipeTitle} placeholder="Title"
+                                       onChange={handleRecipeTitleChange}/>
+                                <Select
                                     placeholder="Ingredients"
                                     className='ingredient-select'
                                     isMulti
                                     options={ingredientOptions}
                                     value={selectedIngredients}
                                     onChange={handleIngredientChange}
-                                    />
+                                />
                                 {selectedIngredients.map(ingredient => (
-                                <div key={ingredient.value}>
-                                <label>
-                                    {ingredient.label}
-                                    <input
-                                        value={ingredient.quantity || ''}
-                                        onChange={e => handleQuantityChange(ingredient.value, e.target.value)}
-                                    />
-                                </label>
-                                </div>
+                                    <div key={ingredient.value}>
+                                        <label>
+                                            {ingredient.label}
+                                            <input
+                                                value={ingredient.quantity || ''}
+                                                onChange={e => handleQuantityChange(ingredient.value, e.target.value)}
+                                            />
+                                        </label>
+                                    </div>
                                 ))}
-                                <textarea value={recipeInstruction} rows="5" placeholder="Instruction" onChange={handleRecipeInstructionChange}></textarea>
+                                <textarea value={recipeInstruction} rows="5" placeholder="Instruction"
+                                          onChange={handleRecipeInstructionChange}></textarea>
                                 <button type="submit">Save</button>
                                 <input type="file" className="image" onChange={handleRecipeImageChange}></input>
                             </form>

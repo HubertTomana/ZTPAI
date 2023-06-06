@@ -128,13 +128,12 @@ a.profile-button {
 
 .profile-button {
     text-align: center;
-    background: #B6A47E ;
-    color:black;
+    background: #B6A47E;
+    color: black;
 }
 
 @media only screen and (max-device-width: 420px) {
 
-    
 
     .rectangle-profile {
         flex-direction: column-reverse;
@@ -149,6 +148,8 @@ a.profile-button {
         width: 60vw;
         letter-spacing: 0.1em;
         justify-content: space-between;
+        box-shadow: none;
+        margin-bottom: 10px;
     }
 
     .statistics-rectangle {
@@ -156,11 +157,13 @@ a.profile-button {
         width: 60vw;
         letter-spacing: 0.1em;
         justify-content: space-around;
+        box-shadow: none;
     }
 
     .statistics-rectangle > form {
         font-size: 10px;
     }
+
     .id {
         font-size: 12px;
     }
@@ -168,8 +171,8 @@ a.profile-button {
     .profile-button {
         text-align: center;
         width: 40vw;
-        background: #B6A47E ;
-        color:black;
+        background: #B6A47E;
+        color: black;
     }
 
     .statistics-bar {
@@ -178,6 +181,7 @@ a.profile-button {
 
     .profile-menu-bar {
         font-size: 15px;
+        margin-bottom: 10px;
     }
 
     .profile-menu-rectangle > div {
@@ -189,13 +193,13 @@ a.profile-button {
     .profile-menu-rectangle > div > form > input {
         font-size: 15px;
     }
-    
+
     .profile-button {
         font-size: 15px;
     }
 
-    .img {
-        width: 60px;
-        height: 60px;
+    .App-logo {
+        width: 70px;
+        height: 70px;
     }
 }

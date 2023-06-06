@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
 import "../css/Style.css"
 import "../css/Recipes.css"
@@ -6,37 +6,77 @@ import axios from 'axios'
 
 const Recipes = () => {
 
-    const token = sessionStorage.getItem('token')
     const [posts, setPosts] = useState([])
     const [recipeDetails, setRecipeDetails] = useState(null);
-    function getLink(recipeId) {
-        return "api/recipes/" + recipeId
+
+    const handleAllRecipes = () => {
+        setRecipeDetails(null)
+        axios.get("api/recipes")
+            .then(res => {
+                console.log(res)
+                setPosts(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleTops = () => {
+        setRecipeDetails(null)
+        axios.get("api/recipes/types/tops")
+            .then(res => {
+                console.log(res)
+                setPosts(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleMasses = () => {
+        setRecipeDetails(null)
+        axios.get("api/recipes/types/masses")
+            .then(res => {
+                console.log(res)
+                setPosts(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    }
+
+    const handleBottoms = () => {
+        setRecipeDetails(null)
+        axios.get("api/recipes/types/bottoms")
+            .then(res => {
+                console.log(res)
+                setPosts(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
     }
 
     const handleRecipeClick = async (recipeId) => {
-    try {
-      const response = await axios.get(`api/recipes/${recipeId}`);
-      setRecipeDetails(response.data);
-    } catch (error) {
-      console.error('Error fetching recipe details:', error);
-    }
-  };
+        try {
+            const response = await axios.get(`api/recipes/${recipeId}`);
+            setRecipeDetails(response.data);
+        } catch (error) {
+            console.error('Error fetching recipe details:', error);
+        }
+    };
 
     useEffect(() => {
         axios.get("api/recipes")
-        .then(res => {
-            console.log(res)
-            setPosts(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        
-    }, [])
+            .then(res => {
+                console.log(res)
+                setPosts(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
 
-function getLink(id_recipe) {
-    return "http://localhost:3000/recipes/" + id_recipe
-}
+    }, [])
 
     return (
         <div className="content">
@@ -56,26 +96,18 @@ function getLink(id_recipe) {
                 <div className="rectangle">
                     <div className="search-menu">
                         <img src={logo} className="App-logo" alt="logo"/>
-                        <a href="tops" className="button">
-                            <div className="search-menu-button">
-                                TOPS
-                            </div>
-                        </a>
-                        <a href="masses" className="button">
-                            <div className="search-menu-button">
-                                MASSES
-                            </div>
-                        </a>
-                        <a href="bottoms" className="button">
-                            <div className="search-menu-button">
-                                BOTTOMS
-                            </div>
-                        </a>
-                        <a href="http://localhost:3000/recipes" className="button">
-                            <div className="search-menu-button">
-                                ALL RECIPES
-                            </div>
-                        </a>
+                        <button className="search-menu-button" onClick={handleTops}>
+                            TOPS
+                        </button>
+                        <button className="search-menu-button" onClick={handleMasses}>
+                            MASSES
+                        </button>
+                        <button className="search-menu-button" onClick={handleBottoms}>
+                            BOTTOMS
+                        </button>
+                        <button className="search-menu-button" onClick={handleAllRecipes}>
+                            ALL RECIPES
+                        </button>
                     </div>
                     <div className="recipe-menu">
                         <header>
@@ -87,33 +119,35 @@ function getLink(id_recipe) {
                             </a>
                         </header>
                         <section className="recipes">
-                        {
-                                    recipeDetails ? 
+                            {
+                                recipeDetails ?
                                     (
                                         <div>
                                             <h2>{recipeDetails.title}</h2>
                                             <p>{recipeDetails.type}</p>
+                                            <div>
+                                                {recipeDetails.listOfIngredients.map(ingredient => (
+                                                    <span key={ingredient.name}>
+                                                <p>{ingredient.name} : {ingredient.quantity} </p>
+                                                </span>
+                                                ))}
+                                            </div>
                                             <p>{recipeDetails.instruction}</p>
-                                            <p>{recipeDetails.listOfIngredients.map(ingredient => (
-                                                <p>{ingredient.name} : {ingredient.quantity}</p>
-                                            ))}
-                                            </p>
-                                            
-                                    </div>
+                                        </div>
                                     )
                                     : posts.map(post => (
-                                        <div id="recipe-1" onClick={() => handleRecipeClick(post.id)}>
+                                        <div id="recipe-1" key={post.id} onClick={() => handleRecipeClick(post.id)}>
                                             <img></img>
-                                                <div>
-                                                    <h2>
-                                                    {post.title}                                                    
-                                                    </h2>                                                   
-                                                </div>                                            
+                                            <div>
+                                                <h2>
+                                                    {post.title}
+                                                </h2>
+                                            </div>
                                         </div>
                                     ))
-                                }
+                            }
 
-                                        
+
                         </section>
                     </div>
                 </div>

@@ -15,4 +15,9 @@ public interface RecipeRepository extends JpaRepository<Recipe, Integer> {
     void deleteByUser(User user);
 
     List<Recipe> findAllByUser(User user);
+
+    List<Recipe> findAllByType(String Type);
+
+    Integer countAllByUser(User user);
+
 }

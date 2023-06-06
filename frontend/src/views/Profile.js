@@ -2,7 +2,7 @@ import React from 'react';
 import logo from './logo.svg';
 import "../css/Style.css"
 import "../css/Profile.css"
-import { useState, useEffect } from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import jwt_decode from 'jwt-decode'
 
@@ -13,10 +13,11 @@ const Profile = () => {
     const role = decodedToken.role;
     const [message, setMessage] = useState('');
     const [post, setPost] = useState('')
+
     function getLink(userId) {
         return "users/" + userId
     }
-    
+
 
     const handleInput = (event) => {
         setPost(event.target.value)
@@ -31,25 +32,25 @@ const Profile = () => {
         console.log(typeof post)
         console.log(deleteData)
         axios.post("users/delete", deleteData)
-        .then(response => {
-            console.log(response)
-            setMessage(response.data)
-        })
-        .catch(err => console.log(err))
+            .then(response => {
+                console.log(response)
+                setMessage(response.data)
+            })
+            .catch(err => console.log(err))
 
     }
 
     const [userDetails, setUserDetails] = useState([])
     useEffect(() => {
         axios.get(getLink(userId))
-        .then(res => {
-            console.log(res)
-            setUserDetails(res.data)
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        
+            .then(res => {
+                console.log(res)
+                setUserDetails(res.data)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+
     }, [])
 
 
@@ -77,13 +78,13 @@ const Profile = () => {
                     <div className="profile-menu">
                         <div className="profile-menu-rectangle">
                             <div className="profile-menu-bar">
-                            {userDetails.name}
+                                {userDetails.name}
                             </div>
                             <div className="profile-menu-bar">
-                            {userDetails.surname}
+                                {userDetails.surname}
                             </div>
                             <div className="profile-menu-bar">
-                            {userDetails.email}
+                                {userDetails.email}
                             </div>
                             <button className="profile-button" onClick={handleLogout}>
                                 LOGOUT
@@ -95,18 +96,19 @@ const Profile = () => {
                         <div className="statistics-rectangle">
                             Number Of My Recipes
                             <div className="statistics-bar">
-                                10
+                                {userDetails.amountOfRecipes}
                             </div>
                             {role === 'ADMIN' &&
-                            
-                            <form className="recipes" onSubmit={handleSubmit}>
-                                {message}
-                            <input className="id" name="userToDeleteId" type="search-placeholder" placeholder="Choose ID to delete" onChange={handleInput}/>
-                            <button className="profile-button" type="submit">
-                                <i className="fa-solid fa-trash-can"></i> &nbsp; Delete
-                            </button>
-                        </form>
-                        }
+
+                                <form className="recipes" onSubmit={handleSubmit}>
+                                    {message}
+                                    <input className="id" name="userToDeleteId" type="search-placeholder"
+                                           placeholder="Choose ID to delete" onChange={handleInput}/>
+                                    <button className="profile-button" type="submit">
+                                        <i className="fa-solid fa-trash-can"></i> &nbsp; Delete
+                                    </button>
+                                </form>
+                            }
                         </div>
                     </div>
                 </div>

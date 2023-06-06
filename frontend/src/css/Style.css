@@ -145,7 +145,7 @@ input, textarea, select {
     form.login-elem > div {
         font-size: 20px;
         font-family: 'Inter';
-        font-style: italic; 
+        font-style: italic;
     }
 
 }
@@ -362,8 +362,7 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
 
     .search-menu-button {
         height: 5vh;
-        letter-spacing: 0.1em;
-        font-size: 10px;
+        font-size: 9px;
     }
 
     header {
@@ -377,7 +376,7 @@ input[type="search-placeholder"]::-ms-input-placeholder { /* Microsoft Edge */
     .search-bar > input {
         height: 50%;
         font-size: 12px;
-        
+
     }
 
     .add-recipe {

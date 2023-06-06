@@ -40,7 +40,7 @@ public class RecipeController {
             String title,
             List<IngredientDto> ingredients,
             String instruction
- //           MultipartFile image
+            //           MultipartFile image
     ) {
 
     }
@@ -94,15 +94,14 @@ public class RecipeController {
         //    ingredientMapWithId.forEach((key, value) -> ingredientMapWithName.put(key.getName(), value));
         //}
         RecipeResponseDto recipeResponse = new RecipeResponseDto();
-        if(recipe != null) {
+        if (recipe != null) {
             recipeResponse.setTitle(recipe.getTitle());
             recipeResponse.setType(recipe.getType());
             recipeResponse.setListOfIngredients(ingredientDto);
             recipeResponse.setInstruction(recipe.getInstruction());
             System.out.println("Oto nasz response : " + recipeResponse);
             return ResponseEntity.ok(recipeResponse);
-        }
-        else {
+        } else {
             return ResponseEntity.notFound().build();
         }
 
@@ -112,6 +111,11 @@ public class RecipeController {
     public List<Ingredient> getIngredients() {
         System.out.println(ingredientRepository.findAll());
         return ingredientRepository.findAll();
+    }
+
+    @GetMapping("/recipes/types/{type}")
+    public List<Recipe> getRecipeByType(@PathVariable String type) {
+        return recipeRepository.findAllByType(type);
     }
 /*
     public String uploadFile(MultipartFile file, String uploadDirectory) throws IOException {

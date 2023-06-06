@@ -1,6 +1,6 @@
 import logo from './logo.svg';
 import "../css/Style.css"
-import React, { useState } from 'react'; 
+import React, {useState} from 'react';
 import axios from 'axios';
 
 const Login = () => {
@@ -9,27 +9,27 @@ const Login = () => {
     const [password, setPassword] = useState('');
     const [noAccess, setNoAccess] = useState('');
 
-    async function handleLogin(e){
-    e.preventDefault();
-    const options = {
-      method: 'POST',
-      url: 'users/get',
-      headers: {'Content-Type': 'application/json'},
-      data: {
-        email: email,
-        password: password
-      }
-    };
-    axios.request(options)
-    .then(function (response){
-      console.log(response.data.token);
-      sessionStorage.setItem('token', response.data.token);
-      window.location.href = '/recipes';
-    })
-    .catch(function(error){
-      setNoAccess("Wrong login or password");
-    })
-  }  
+    async function handleLogin(e) {
+        e.preventDefault();
+        const options = {
+            method: 'POST',
+            url: 'users/get',
+            headers: {'Content-Type': 'application/json'},
+            data: {
+                email: email,
+                password: password
+            }
+        };
+        axios.request(options)
+            .then(function (response) {
+                console.log(response.data.token);
+                sessionStorage.setItem('token', response.data.token);
+                window.location.href = '/recipes';
+            })
+            .catch(function (error) {
+                setNoAccess("Wrong login or password");
+            })
+    }
 
 
     return (
@@ -40,26 +40,26 @@ const Login = () => {
                     PUZZLE
                     CAKE
                 </div>
-                <div className ="login-container">                    
+                <div className="login-container">
                     <form className="login-elem">
                         <div>{noAccess}</div>
-                        <input 
+                        <input
                             className="email"
                             name="email"
-                            type="text" 
+                            type="text"
                             placeholder="Email"
-                            value={email} 
+                            value={email}
                             onChange={e => setEmail(e.target.value)}
-                            />
-                        <input 
-                            className="password" 
+                        />
+                        <input
+                            className="password"
                             name="password"
-                            type="password" 
+                            type="password"
                             placeholder="Password"
                             value={password}
                             onChange={e => setPassword(e.target.value)}
-                            />
-                            <button onClick={handleLogin}>LOGIN</button>
+                        />
+                        <button onClick={handleLogin}>LOGIN</button>
                     </form>
                     <a className="login" href="/registration">
                         <button>REGISTER</button>
